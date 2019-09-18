@@ -62,7 +62,7 @@ public class NoteRepository {
 
         @Override
         protected Void doInBackground(Note... notes) {
-            noteDao.insertNote(notes[0]);
+            noteDao.delete(notes[0]);
             return null;
         }
     }
@@ -76,7 +76,7 @@ public class NoteRepository {
 
         @Override
         protected Void doInBackground(Note... notes) {
-            noteDao.insertNote(notes[0]);
+            noteDao.updateNote(notes[0]);
             return null;
         }
     }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> {
 
     private List<Note> noteData = new ArrayList<>();
+    private OnClickListener onClickListener;
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,6 +42,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
         notifyDataSetChanged();
     }
 
+    public Note getNoteAt(int position){
+        return noteData.get(position);
+    }
+
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
@@ -59,6 +65,25 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.MyViewHolder> 
             priorityTv = itemView.findViewById(R.id.priority);
             titleTv = itemView.findViewById(R.id.title);
             descriptionTv = itemView.findViewById(R.id.description);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (onClickListener==null || position==RecyclerView.NO_POSITION){
+                        return;
+                    }
+                    onClickListener.onClicked(noteData.get(position));
+                }
+            });
         }
+    }
+
+    public interface OnClickListener {
+        void onClicked(Note note);
+    }
+
+    public void setOnItemClickListener(OnClickListener listener){
+        this.onClickListener = listener;
     }
 }
