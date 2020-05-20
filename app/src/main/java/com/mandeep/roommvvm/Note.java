@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "notes_table")
-public class Note {
+class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -14,29 +14,29 @@ public class Note {
 
     private int priority;
 
-    public Note(String title, String description, int priority) {
+    Note(String title, String description, int priority) {
         this.title = title;
         this.description = description;
         this.priority = priority;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public int getPriority() {
+    int getPriority() {
         return priority;
     }
 }

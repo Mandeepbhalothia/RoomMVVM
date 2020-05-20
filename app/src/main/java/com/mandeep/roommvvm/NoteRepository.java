@@ -3,42 +3,42 @@ package com.mandeep.roommvvm;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import java.util.List;
-
 import androidx.lifecycle.LiveData;
 
-public class NoteRepository {
+import java.util.List;
+
+class NoteRepository {
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
 
-    public NoteRepository(Application application){
+    NoteRepository(Application application) {
         NoteDatabase noteDatabase = NoteDatabase.getInstance(application);
         noteDao = noteDatabase.getNoteDao();
         allNotes = noteDao.getAllNotes();
     }
 
-    public void insert(Note note){
+    void insert(Note note) {
         new InsertNoteAsyncTask(noteDao).execute(note);
     }
 
-    public void update(Note note){
+    void update(Note note) {
         new UpdateAsyncTask(noteDao).execute(note);
     }
 
-    public void delete(Note note){
+    void delete(Note note) {
         new DeleteNoteAsyncTask(noteDao).execute(note);
     }
 
-    public void deleteAll(){
+    void deleteAll() {
         new DeleteAllNoteAsyncTask(noteDao).execute();
     }
 
     // No need of async task , it will automatically perform on background thread
-    public LiveData<List<Note>> getAllNotes() {
+    LiveData<List<Note>> getAllNotes() {
         return allNotes;
     }
 
-    private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void>{
+    private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {
 
         private NoteDao noteDao;
 
@@ -52,11 +52,12 @@ public class NoteRepository {
             return null;
         }
     }
-    private static class DeleteNoteAsyncTask extends AsyncTask<Note, Void, Void>{
+
+    private static class DeleteNoteAsyncTask extends AsyncTask<Note, Void, Void> {
 
         private NoteDao noteDao;
 
-        public DeleteNoteAsyncTask(NoteDao noteDao) {
+        DeleteNoteAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
         }
 
@@ -66,11 +67,12 @@ public class NoteRepository {
             return null;
         }
     }
-    private static class UpdateAsyncTask extends AsyncTask<Note, Void, Void>{
+
+    private static class UpdateAsyncTask extends AsyncTask<Note, Void, Void> {
 
         private NoteDao noteDao;
 
-        public UpdateAsyncTask(NoteDao noteDao) {
+        UpdateAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
         }
 
@@ -80,11 +82,12 @@ public class NoteRepository {
             return null;
         }
     }
-    private static class DeleteAllNoteAsyncTask extends AsyncTask<Void, Void, Void>{
+
+    private static class DeleteAllNoteAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private NoteDao noteDao;
 
-        public DeleteAllNoteAsyncTask(NoteDao noteDao) {
+        DeleteAllNoteAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
         }
 

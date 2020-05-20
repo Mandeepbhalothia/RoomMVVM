@@ -10,11 +10,11 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {Note.class}, version = 1, exportSchema = false)
-public abstract class NoteDatabase extends androidx.room.RoomDatabase {
+abstract class NoteDatabase extends androidx.room.RoomDatabase {
 
     private static NoteDatabase instance;
 
-    public abstract NoteDao getNoteDao();
+    abstract NoteDao getNoteDao();
 
     static synchronized NoteDatabase getInstance(Context context) {
         if (instance == null){
